@@ -42,23 +42,27 @@ class Settings{
         $('#contactUsSection').fadeOut(0);
         $('#mealsSection').fadeIn(0);
         $('#homePageMeals').html('');
+        $('body').addClass('overflow-y-hidden');
         $('#innerLoadingScreen').fadeIn(0);
         let ingredients = await this.fetchIngredients();
         ui.displayIngredients(ingredients);
         this.setupIngredient(ingredients);
         $('#innerLoadingScreen').fadeOut(300);
+        $('body').removeClass('overflow-y-hidden');
     }
 
     setupIngredient(ingredients){
         let allIngredients = document.querySelectorAll('.ingredient');
         for(let i = 0 ; i < allIngredients.length ; i++){
             allIngredients[i].addEventListener('click',async (e) => {
+                $('body').addClass('overflow-y-hidden');
                 $('#innerLoadingScreen').fadeIn(0);
                 let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients[i].strIngredient}`);
                 let { meals } = await response.json();
                 ui.displayRecipes(meals);
                 this.setupMeals(meals);
                 $('#innerLoadingScreen').fadeOut(300);
+                $('body').removeClass('overflow-y-hidden');
             })
         }
     }
@@ -78,23 +82,27 @@ class Settings{
         $('#contactUsSection').fadeOut(0);
         $('#mealsSection').fadeIn(0);
         $('#homePageMeals').html('');
+        $('body').addClass('overflow-y-hidden');
         $('#innerLoadingScreen').fadeIn(0);
         let areas = await this.fetchAreas();
         ui.displayAreas(areas);
         this.setupAreas(areas);
         $('#innerLoadingScreen').fadeOut(300);
+        $('body').removeClass('overflow-y-hidden');
     }
 
     setupAreas(areas){
         let allAreas = document.querySelectorAll('.area');
         for(let i = 0 ; i < allAreas.length ; i++){
             allAreas[i].addEventListener('click',async (e) => {
+                $('body').addClass('overflow-y-hidden');
                 $('#innerLoadingScreen').fadeIn(0);
                 let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${areas[i].strArea}`);
                 let { meals } = await response.json();
                 ui.displayRecipes(meals);
                 this.setupMeals(meals);
                 $('#innerLoadingScreen').fadeOut(300);
+                $('body').removeClass('overflow-y-hidden');
             });
         }
     }
@@ -114,24 +122,27 @@ class Settings{
         $('#contactUsSection').fadeOut(0);
         $('#mealsSection').fadeIn(0);
         $('#homePageMeals').html('');
+        $('body').addClass('overflow-y-hidden');
         $('#innerLoadingScreen').fadeIn(0);
         let categories = await this.fetchCategories();
         ui.displayCategories(categories);
         this.setupCategories(categories);
         $('#innerLoadingScreen').fadeOut(300);
+        $('body').removeClass('overflow-y-hidden');
     }
 
     setupCategories(categories){
         let allCategories = document.querySelectorAll('.category');
         for(let i = 0 ; i < allCategories.length ; i++){
             allCategories[i].addEventListener('click',async (e) => {
+                $('body').addClass('overflow-y-hidden');
                 $('#innerLoadingScreen').fadeIn(0);
                 let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categories[i].strCategory}`);
                 let { meals } = await response.json();
-                // console.log(meals);
                 ui.displayRecipes(meals);
                 this.setupMeals(meals);
                 $('#innerLoadingScreen').fadeOut(300);
+                $('body').removeClass('overflow-y-hidden');
             });
         }
     }
@@ -139,7 +150,6 @@ class Settings{
     async fetchCategories(){
         let response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
         let { categories } = await response.json();
-        // console.log(categories);
         return categories;
     }
 
@@ -194,6 +204,7 @@ class Settings{
     async search(byNameOrFirstLetter){
         if(!$('#sidebarBtn i').hasClass('fa-align-justify')) // if the sidebar is open then close it
             this.sideBarAction();
+        $('body').addClass('overflow-y-hidden');
         $('#innerLoadingScreen').fadeIn(200);
         let meals = '';
         if(byNameOrFirstLetter == 'searchByName'){
@@ -211,6 +222,7 @@ class Settings{
             location.innerHTML = `<h2 class="text-4xl text-center text-white">No Results Found</h2>`
         }
         $('#innerLoadingScreen').fadeOut(100);
+        $('body').removeClass('overflow-y-hidden');
     }
 
     async fetchByName(mealName){
