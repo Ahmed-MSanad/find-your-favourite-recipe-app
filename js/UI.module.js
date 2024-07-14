@@ -49,7 +49,7 @@ export class UI{
         $('#mealCategory').html(mealDetails.strCategory);
         let recipeBox = ``;
         let i = 1;
-        while(mealDetails[`strIngredient${i}`] != "" && i <= 20){
+        while(mealDetails[`strIngredient${i}`] && i <= 20){
             let ingredient = mealDetails[`strIngredient${i}`];
             let measure = mealDetails[`strMeasure${i}`];
             recipeBox += `
